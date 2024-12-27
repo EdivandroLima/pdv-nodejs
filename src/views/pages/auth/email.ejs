@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redefinir Senha</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+</head>
+
+<body class="bg-light">
+
+    <div class="container py-5 mt-5 ">
+        <div class="row gy-4 justify-content-center">
+            <div class="col-md-6 col-lg-5 pt-lg-5">
+                <div class="card rounded-3 ">
+                    <div class="card-body  py-4 px-4">
+                        <div class="p-1">
+                            <h1 class="mb-4 h3">Redefinir Senha</h1>
+
+                            <% if(msgs.error){ %>
+                            <div class="alert alert-danger" role="alert">
+                                <strong><%= msgs.error[0] %></strong>
+                            </div>
+                            <% } %>
+                            <% if(msgs.success){ %>
+                            <div class="alert alert-success" role="alert">
+                                <strong><%= msgs.success[0] %></strong>
+                            </div>
+                            <% } %>
+
+                            <form action="/redefinir-senha" method="post">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control " id="email" name="email" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-2 w-100 fw-semibold ">
+                                    Enviar link para redefinir sua senha
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-1">
+                    <a href="/login" class="text-dark ">
+                        Fazer Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

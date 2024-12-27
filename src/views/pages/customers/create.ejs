@@ -1,0 +1,65 @@
+<%- include('../../layout/app', {title: 'Clientes'}) %>
+<%- include('../../layout/partials/header') %>
+
+<div class="container py-5 pt-4">
+    <div class="">
+        <h1>Novo Cliente</h1>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body p-4">
+
+            <% if(errors.form){ %>
+            <div class="alert alert-danger" role="alert">
+                <strong><%= errors.form[0] %></strong>
+            </div>
+            <% } %>
+
+            <form action="/clientes" method="post">
+                <div class="row">
+                    <div class="mb-3 col-lg-12">
+                        <label for="name" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="name"
+                            value="<%= errors.oldName ? errors.oldName : '' %>" name="name" required>
+                    </div>
+                    <div class="mb-3 col-lg-12">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="email" value="<%= errors.oldEmail ? errors.oldEmail : '' %>" class="form-control"
+                            id="email" name="email" required>
+                    </div>
+                    <div class="mb-3 col-lg-6">
+                        <label for="" class="form-label">Status</label>
+                        <select class="form-select" name="status" id="" required>
+                            <option value="1" <%= errors.oldStatus == 1 ? 'selected': '' %>>Ativo</option>
+                            <option value="0" <%= errors.oldStatus == 0 ? 'selected': '' %>>Desativado</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 col-lg-6 pb-3">
+                        <label for="phone" class="form-label">Telefone</label>
+                        <input type="text" class="form-control" value="<%= errors.oldPhone ? errors.oldPhone : '' %>"
+                            placeholder="(88) 99999-9999" id="phone" name="phone" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary px-4">Salvar</button>
+                <a class="btn btn-link" href="/clientes">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../../layout/partials/footer') %>
+
+<!-- Imask -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/imask/7.6.1/imask.min.js"></script>
+<script>
+    var valor = IMask(
+        document.getElementById('phone'), {
+            mask: [{
+                    mask: '(00) 00000-0000',
+                },
+                {
+                    mask: '00000000000000000000'
+                }
+            ]
+        }
+    );
+</script>

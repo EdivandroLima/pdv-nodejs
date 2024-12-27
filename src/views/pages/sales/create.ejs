@@ -1,0 +1,115 @@
+<%- include('../../layout/app', {title: 'Cadastar Venda'}) %>
+<%- include('../../layout/partials/header') %>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+<style>
+    .choices[data-type*=select-one] .choices__inner {
+        border-radius: 6px;
+        background: white;
+    }
+</style>
+
+<div class="container py-5 pt-4">
+    <div class="">
+        <h1>Nova Venda</h1>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body p-4">
+            <form action="/vendas" method="post">
+                <div class="mb-3">
+                    <label for="choices-select-customer" class="form-label">Cliente</label>
+                    <select class="form-select" name="customerId" id="choices-select-customer" required>
+                        <!-- <option value="" selected>Selecione uma opção</option> -->
+                        <% customers.forEach(customer => { %>
+                        <option value="<%= customer.id %>"><%= customer.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="choices-select-product" class="form-label">Produto</label>
+                    <select class="form-select" name="productId" id="choices-select-product" required>
+                        <!-- <option value="" selected>Selecione uma opção</option> -->
+                        <% products.forEach(product => { %>
+                        <option value="<%= product.id %>" data-valor="<%= product.price %>">
+                            <%= product.name %> -
+                            R$ <%= Number(product.price).toLocaleString('pt-br', {minimumFractionDigits: 2}) %>
+                        </option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="total" class="form-label">Total</label>
+                    <input type="text" class="form-control" placeholder="0" id="total" name="total" required>
+                </div>
+                <div class="mb-3 pb-3">
+                    <div class="alert alert-primary" role="alert">
+                        Valor a pagar:
+                        <div class="fs-2 fw-bold" id="price-value">
+                            R$ 0,00
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary px-4">Salvar</button>
+                <a class="btn btn-link" href="/vendas">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../../layout/partials/footer') %>
+
+<!-- Imask -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/imask/7.6.1/imask.min.js"></script>
+<script>
+    var valor = IMask(
+        document.getElementById('total'), {
+            mask: '0000000',
+        }
+    );
+</script>
+
+<!-- Choices.js -->
+<script>
+    // customer
+    const selectCustomer = document.getElementById('choices-select-customer');
+    const choicesCustomer = new Choices(selectCustomer, {
+        searchEnabled: true,
+        placeholder: true,
+        placeholderValue: 'Selecione uma opção',
+    });
+    // product
+    const selectProduct = document.getElementById('choices-select-product');
+    const choicesProduct = new Choices(selectProduct, {
+        searchEnabled: true,
+        placeholder: true,
+        placeholderValue: 'Selecione uma opção',
+    });
+
+    document.getElementById('choices-select-product').value = ''
+    document.getElementById('choices-select-customer').value = ''
+</script>
+
+<!-- set price -->
+<script>
+    function setValue() {
+
+        const select = document.getElementById('choices-select-product');
+        const price = select.options[select.selectedIndex].dataset.valor;
+        const total = document.getElementById('total').value == '' ? 0 : document.getElementById('total').value
+        const totalPrice = total * price;
+
+        document.getElementById('price-value').innerText = Number(totalPrice).toLocaleString('pt-br', {
+            style: 'currency',
+            currency: 'BRL'
+        });
+    }
+
+    document.getElementById('choices-select-product').addEventListener('change', function () {
+        setValue()
+    });
+    document.getElementById('total').addEventListener('keyup', function () {
+        setValue()
+    });
+</script>

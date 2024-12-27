@@ -1,0 +1,52 @@
+<% if(dataPaginate.total > dataPaginate.limit) { %>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <!-- Botão para página anterior -->
+        <li class="page-item <%= dataPaginate.prevPage ? '' : 'disabled' %>">
+            <a class="page-link" href="<%= dataPaginate.prevPage ? `?page=${dataPaginate.currentPage - 1}` : '#' %>"
+                aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        <!-- Primeira página -->
+        <% if (dataPaginate.currentPage > 3) { %>
+        <li class="page-item">
+            <a class="page-link" href="?page=1">1</a>
+        </li>
+        <% if (dataPaginate.currentPage > 4) { %>
+        <li class="page-item disabled">
+            <span class="page-link">...</span>
+        </li>
+        <% } %>
+        <% } %>
+
+        <!-- Páginas próximas -->
+        <% for (let i = Math.max(1, dataPaginate.currentPage - 2); i <= Math.min(dataPaginate.totalPages, dataPaginate.currentPage + 2); i++) { %>
+        <li class="page-item <%= dataPaginate.currentPage == i ? 'active' : '' %>">
+            <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+        </li>
+        <% } %>
+
+        <!-- Última página -->
+        <% if (dataPaginate.currentPage < dataPaginate.totalPages - 2) { %>
+        <% if (dataPaginate.currentPage < dataPaginate.totalPages - 3) { %>
+        <li class="page-item disabled">
+            <span class="page-link">...</span>
+        </li>
+        <% } %>
+        <li class="page-item">
+            <a class="page-link" href="?page=<%= dataPaginate.totalPages %>"><%= dataPaginate.totalPages %></a>
+        </li>
+        <% } %>
+
+        <!-- Botão para próxima página -->
+        <li class="page-item <%= dataPaginate.nextPage ? '' : 'disabled' %>">
+            <a class="page-link" href="<%= dataPaginate.nextPage ? `?page=${dataPaginate.currentPage + 1}` : '#' %>"
+                aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<% } %>

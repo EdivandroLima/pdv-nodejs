@@ -1,0 +1,66 @@
+<header>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <div class="container">
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-muted fw-semibold" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-muted fw-semibold">•</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-muted fw-semibold" href="/clientes">Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-muted fw-semibold">•</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-muted fw-semibold" href="/produtos">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-muted fw-semibold">•</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-muted fw-semibold" href="/vendas">Vendas</a>
+                    </li>
+                    <li class="nav-item ms-4 d-flex align-items-center">
+                        <div class="dropdown">
+                            <button class="btn btn-none p-0 dropdown-toggle border-0  d-flex align-items-center"
+                                type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <!-- Edivandro Lima -->
+                                <i class="fa-solid fa-circle-user fs-3"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="triggerId">
+                                <div class="dropdown-item-text">
+                                    <div class="fw-semibold">
+                                        <%= user.name %>
+                                    </div>
+                                    <div class="fw-normal small text-muted">
+                                        <%= user.email %>
+                                    </div>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/meus-dados">
+                                    <i class="fa-regular fa-circle-user me-1"></i>
+                                    Meus Dados
+                                </a>
+                                <a class="dropdown-item" href="/logout">
+                                    <i class="fa-solid fa-right-from-bracket small me-1"></i>
+                                    Sair
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

@@ -1,0 +1,67 @@
+<%- include('../../layout/app', {title: 'Produtos'}) %>
+<%- include('../../layout/partials/header') %>
+
+<div class="container py-5 pt-4">
+    <div class="d-lg-flex align-items-center">
+        <div class="col-lg-6">
+            <h1>Produtos</h1>
+        </div>
+        <div class="col-lg-6 text-end">
+            <a class="btn btn-primary" href="/produtos/novo">
+                <i class="fa-solid fa-plus"></i>
+                Novo Produto
+            </a>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body">
+
+            <% if (msgs.success) { %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong><%= msgs.success %></strong>
+            </div>
+            <% }  %>
+            <% if (msgs.error) { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong><%= msgs.error %></strong>
+            </div>
+            <% }  %>
+
+            <div class="row gy-4 mb-4 pt-3">
+                <% products.data.forEach(product => { %>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card position-relative">
+                        <img class="card-img-top" src="<%= product.img ?? '/assets/imgs/thumb2.png' %>" alt="Title" />
+                        <div class="card-body ">
+                            <h3 class="card-title text-capitalize"><%= product.name %></h3>
+                            <div class="fs-6 fw-bold text-dark ">
+                                <%= Number(product.price).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) %>
+                            </div>
+                            <div class="mt-2 text-end position-absolute top-0 opacity-75" style="right: 5px">
+                                <a class="btn btn-dark btn-sm p-1 py-0" title="Editar"
+                                    href="/produtos/editar/<%= product.id %>"><i class="fa-solid fa-edit"></i></a>
+                                <a class="btn btn-dark btn-sm p-1 py-0" title="Deletar" data-bs-toggle="modal"
+                                    data-bs-target="#modal-delete"
+                                    onclick="document.getElementById('form-delete').action='/produtos/deletar/<%= product.id %>';"
+                                    href="#">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </a>
+                                <div class="btn btn-light btn-sm p-1 py-0 border" style="cursor: default;">
+                                    <i class="fa-solid fa-box"></i> <%= product.total_stock%>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+            <!-- Paginação -->
+            <%- include('../../components/paginate', {dataPaginate: products}) %>
+        </div>
+    </div>
+</div>
+
+<%- include('../../components/modal-delete') %>
+<%- include('../../layout/partials/footer') %>

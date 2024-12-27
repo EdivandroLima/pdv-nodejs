@@ -1,0 +1,81 @@
+<%- include('../../layout/app', {title: 'Clientes'}) %>
+<%- include('../../layout/partials/header') %>
+
+<div class="container py-5 pt-4">
+    <div class="d-lg-flex align-items-center">
+        <div class="col-lg-6">
+            <h1>Clientes</h1>
+        </div>
+        <div class="col-lg-6 text-end">
+            <a class="btn btn-primary" href="/clientes/novo">
+                <i class="fa-solid fa-plus"></i>
+                Novo Cliente
+            </a>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body">
+
+            <% if (msgs.success) { %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong><%= msgs.success %></strong>
+            </div>
+            <% }  %>
+            <% if (msgs.error) { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong><%= msgs.error %></strong>
+            </div>
+            <% }  %>
+
+            <div class="table-responsive mb-3">
+                <table class="table table-hover table-striped ">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col">Telefone</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% customers.data.forEach(customer => { %>
+                        <tr class="">
+                            <td scope="row"><%= customer.name %></td>
+                            <td><%= customer.email %></td>
+                            <td><%= customer.phone.replace('+','') %></td>
+                            <td class="">
+                                <% if (customer.status) { %>
+                                <span class="badge bg-success">Ativo</span>
+                                <% } else { %>
+                                <span class="badge bg-danger">Desativado</span>
+                                <% } %>
+                            </td>
+                            <td><%= formatDate(customer.createdAt, 'DD/MM/YYYY') %></td>
+                            <td>
+                                <a class="btn btn-none text-primary p-0" title="Editar"
+                                    href="/clientes/editar/<%= customer.id %>"><i class="fa-solid fa-edit"></i></a>
+                                <a class="btn btn-none text-danger p-0" title="Deletar" data-bs-toggle="modal"
+                                    data-bs-target="#modal-delete"
+                                    onclick="document.getElementById('form-delete').action='/clientes/deletar/<%= customer.id %>';"
+                                    href="#">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Paginação -->
+            <%- include('../../components/paginate', {dataPaginate: customers}) %>
+        </div>
+    </div>
+</div>
+
+<%- include('../../components/modal-delete') %>
+<%- include('../../layout/partials/footer') %>

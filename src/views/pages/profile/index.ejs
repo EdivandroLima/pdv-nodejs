@@ -1,0 +1,78 @@
+<%- include('../../layout/app', {title: 'Meus Dados'}) %>
+<%- include('../../layout/partials/header') %>
+
+<div class="container py-5 pt-4">
+    <div class="">
+        <h1>Meus Dados</h1>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body p-4">
+
+            <% if(errors.form){ %>
+            <div class="alert alert-danger" role="alert">
+                <strong><%= errors.form[0] %></strong>
+            </div>
+            <% } %>
+            <% if(errors.success){ %>
+            <div class="alert alert-success" role="alert">
+                <strong><%= errors.success[0] %></strong>
+            </div>
+            <% } %>
+
+            <form action="/meus-dados" method="post">
+                <div class="row">
+                    <div class="mb-3 col-lg-12">
+                        <label for="name" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="name"
+                            value="<%= errors.oldName ? errors.oldName : user.name %>" name="name" required>
+                    </div>
+                    <div class="mb-3 col-lg-12">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="email" value="<%= errors.oldEmail ? errors.oldEmail : user.email %>" class="form-control"
+                            id="email" name="email" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary px-4">Salvar</button>
+                <a class="btn btn-link" href="/">Cancelar</a>
+            </form>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body p-4">
+            <h4 class="mb-3">Alterar Senha</h4>
+            <% if(errors.password){ %>
+            <div class="alert alert-danger" role="alert">
+                <strong><%= errors.password[0] %></strong>
+            </div>
+            <% } %>
+            <% if(errors.success_password){ %>
+            <div class="alert alert-success" role="alert">
+                <strong><%= errors.success_password[0] %></strong>
+            </div>
+            <% } %>
+            <form action="/meus-dados/alterar-senha" method="post">
+                <div class="row">
+                    <div class="mb-3 col-lg-12">
+                        <label for="current_password" class="form-label">Senha Atual</label>
+                        <input type="password" class="form-control" id="current_password"
+                            value="" name="current_password" required>
+                    </div>
+                    <div class="mb-3 col-lg-12">
+                        <label for="new_password" class="form-label">Nova Senha</label>
+                        <input type="password" class="form-control" id="new_password"
+                            value="" name="new_password" required>
+                    </div>
+                    <div class="mb-3 col-lg-12">
+                        <label for="confirm_new_password" class="form-label">Confirmar Nova Senha</label>
+                        <input type="password" class="form-control" id="confirm_new_password"
+                            value="" name="confirm_new_password" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary px-4">Salvar</button>
+                <a class="btn btn-link" href="/">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../../layout/partials/footer') %>

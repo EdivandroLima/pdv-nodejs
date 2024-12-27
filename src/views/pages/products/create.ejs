@@ -1,0 +1,107 @@
+<%- include('../../layout/app', {title: 'Produtos'}) %>
+<%- include('../../layout/partials/header') %>
+
+<div class="container py-5 pt-4">
+    <div class="">
+        <h1>Novo Produto</h1>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body p-4">
+
+            <% if (errors.success) { %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong><%= errors.success %></strong>
+            </div>
+            <% }  %>
+
+            <% if(errors.form){ %>
+            <div class="alert alert-danger" role="alert">
+                <strong><%= errors.form[0] %></strong>
+            </div>
+            <% } %>
+
+            <form action="/produtos" method="post" enctype="multipart/form-data">
+                <div class="mb-3 d-flex gap-2 align-items-center">
+                    <div class="d-flex align-items-center" style="min-height: 100px;">
+                        <img id="imagePreview" src="/assets/imgs/thumb.png" alt="Prévia da Imagem" class="img-fluid"
+                            style="max-width: 100px; border: 1px solid #ddd; padding: 5px; border-radius: 5px;">
+                    </div>
+                    <div class="">
+                        <label for="imageInput" class="form-label">Selecione uma imagem:</label>
+                        <input class="form-control" type="file" id="imageInput" name="img" accept="image/*" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3 pb-3">
+                    <label for="total-stock" class="form-label">Qtd. Estoque</label>
+                    <input type="text" class="form-control" placeholder="0" id="total-stock" name="total_stock"
+                        required>
+                </div>
+                <div class="mb-3 pb-3">
+                    <label for="price" class="form-label">Preço</label>
+                    <input type="text" class="form-control" placeholder="R$ 0,00" id="price" name="price" required>
+                </div>
+                <button type="submit" class="btn btn-primary px-4">Salvar</button>
+                <a class="btn btn-link" href="/produtos">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../../layout/partials/footer') %>
+
+<!-- Imask -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/imask/7.6.1/imask.min.js"></script>
+<script>
+    var price = IMask(
+        document.getElementById('price'), {
+            mask: [{
+                    mask: ''
+                },
+                {
+                    mask: 'R$ num',
+                    lazy: false,
+                    blocks: {
+                        num: {
+                            mask: Number,
+                            scale: 2,
+                            thousandsSeparator: '.',
+                            padFractionalZeros: true,
+                            radix: ',',
+                            mapToRadix: ['.'],
+                        }
+                    }
+                }
+            ]
+        }
+    );
+
+    var stock = IMask(
+        document.getElementById('total-stock'), {
+            mask: '0000000000000'
+        }
+    );
+</script>
+
+<script>
+    // visualizar imagem
+    document.getElementById('imageInput').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('imagePreview');
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = '/assets/imgs/thumb.png';
+        }
+    });
+</script>

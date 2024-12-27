@@ -1,0 +1,54 @@
+<%- include('../../layout/app', {title: 'Home'}) %>
+<%- include('../../layout/partials/header') %>
+
+<div class="container py-5 mt-4">
+    <div class="row gy-4 justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body text-center py-4">
+                    <i class="fa-solid fa-box fs-1 mb-2"></i>
+                    <h2 class="card-title">Cadastrar Produto</h2>
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda soluta, dolorem natus
+                        porro rerum modi fugiat quisquam provident a quaerat!
+                    </p>
+                    <a href="/produtos/novo" class="btn btn-sm fw-semibold py-2  text-uppercase btn-primary  px-5 rounded-0">
+                        Novo Produto
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body text-center py-4">
+                    <i class="fa-solid fa-users-between-lines fs-1 mb-2"></i>
+                    <h2 class="card-title">Cadastrar Cliente</h2>
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda soluta, dolorem natus
+                        porro rerum modi fugiat quisquam provident a quaerat!
+                    </p>
+                    <a href="/clientes/novo" class="btn btn-sm fw-semibold py-2  text-uppercase btn-success  px-5 rounded-0">
+                        Novo Cliente
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body text-center py-4">
+                    <i class="fa-solid fa-sack-dollar fs-1 mb-2"></i>
+                    <h2 class="card-title">Cadastrar Venda</h2>
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda soluta, dolorem natus
+                        porro rerum modi fugiat quisquam provident a quaerat!
+                    </p>
+                    <a href="/vendas/novo" class="btn btn-sm fw-semibold py-2  text-uppercase btn-danger  px-5 rounded-0">
+                        Nova Venda
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../../layout/partials/footer') %>
